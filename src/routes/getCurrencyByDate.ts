@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import axios from 'axios';
 import PG from '../db';
 import { config } from 'dotenv';
+import { DateInFormat } from '../date/date';
 config()
 
 export const getCurrencyByDate = Router()
@@ -14,11 +15,11 @@ getCurrencyByDate.post('/getCurrencyByDate', (req: Request, res: Response) => {
 			`https://api.getgeoapi.com/v2/currency/historical/${req.body.date}?api_key=${process.env.THIRD_APP_API_KEY}&from=${req.body.from}&to=${req.body.to}&amount=1&format=json`
 	})
 		.then(async val => {
+			const date = new Date()
 			const pg = new PG()
 			await pg.query(
-				`INSERT INTO currency_log VALUES (${new Date()}, ${req.body.from}, ${req.body.to});`)
-				.then((dbResult) => {
-					console.log('db res: ' + dbResult)
+				`INSERT INTO currency_log VALUES ('${DateInFormat()}', '${req.body.from}', '${req.body.to}', 'by date');`)
+				.then(() => {
 					res.json(val.data)
 				})
 				.catch(reason => {
