@@ -27,9 +27,7 @@ export class App implements IApp {
 	}
 
 	async init() {
-		this.app.listen(this.PORT, () => {
-			console.log('Hello world')
-		})
+		this.app.listen(this.PORT)
 		this.app.use(bodyParser.json())
 	}
 
