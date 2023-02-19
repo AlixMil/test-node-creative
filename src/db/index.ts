@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
 import { config } from 'dotenv';
-config({ debug: true })
+config()
 
 export default class PG {
 	private pool: Pool
