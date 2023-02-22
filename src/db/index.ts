@@ -1,6 +1,5 @@
 import { Pool, Client, PoolClient } from 'pg';
 import { config } from 'dotenv';
-import { Connection } from 'pg';
 config()
 
 export default class PostgresPoolConnection {
